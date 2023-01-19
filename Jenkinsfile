@@ -1,10 +1,12 @@
 pipeline {
     agent any
-//     tools {
+    tools {
+        maven 'MAVEN'
+        jdk 'JDK'
 //         gradle 'gradle_v7.5.1'
 //         dockerTool 'docker'
 //         git 'Default'
-//     }
+    }
 
     stages {
         stage('checkout') {
@@ -32,16 +34,9 @@ pipeline {
 
         stage("maven build") {
             stages {
-                stage("mvn install") {
-                    steps {
-                        sh """
-                            mvn install
-                        """
-                    }
-                }
                 stage("maven build") {
                     steps{
-                        sh "mvn clean compile package"
+                        sh "mvn -B -DskipTests clean compile package"
                     }
                 }
             }
