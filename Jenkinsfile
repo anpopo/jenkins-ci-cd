@@ -5,7 +5,7 @@ pipeline {
             steps {
                 git branch: 'master',
                     credentialsId: 'github_access_token',
-                    url: 'https://https://github.com/anpopo/jenkins-ci-cd.git'
+                    url: 'https://github.com/anpopo/jenkins-ci-cd.git'
             }
         }
     }
