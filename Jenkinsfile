@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'MAVEN'
-        jdk 'JDK'
+        maven 'maven default'
+        jdk 'openjdk-17-jdk'
 //         gradle 'gradle_v7.5.1'
 //         dockerTool 'docker'
 //         git 'Default'
