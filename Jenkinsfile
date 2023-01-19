@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    tools {
+//     tools {
 //         gradle 'gradle_v7.5.1'
-        dockerTool 'docker'
-        git 'Default'
-    }
+//         dockerTool 'docker'
+//         git 'Default'
+//     }
 
     stages {
         stage('checkout') {
