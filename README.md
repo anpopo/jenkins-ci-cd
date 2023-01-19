@@ -53,4 +53,56 @@ $ javac --version # javac 17.0.4
     - branch : 선택
     - Script Path : Jenkinsfile (원격 레포지토리의 jenkinsfile 을 읽어 jenkins pipeline script 실행)
 
+>
+> github 웹훅 설정 후 
+> HTTP ERROR 403 No valid crumb was included in the request 에러 관련 해결
+> plugin > strict crumb 추가
+> dashboard > jenkins 관리 > configure global security > CSRF Protection > 고급 
+>   Check the session ID 체크 해제 후 저장
+> \
+> [참조1](https://blog.mglee.dev/blog/jenkins-403-no-valid-crumb-%EC%97%90%EB%9F%AC-%EB%A6%AC%ED%8F%AC%ED%8A%B8)
+> , [참조2](https://honeyinfo7.tistory.com/293)
+>
+
+## 5. Jenkinsfile 을 통한 script 실행
+```shell
+pipeline {
+    agent any
+    tools {
+        maven 'maven default'  // jenkins tool configuration 에 등록된 이름
+        jdk 'openjdk-17-jdk'
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'github_access_token',
+                    url: 'https://github.com/anpopo/jenkins-ci-cd.git'
+            }
+            post {
+                success {
+                  echo 'Repository clone success !'
+                }
+                failure {
+                  echo 'Repository clone failure !'
+                }
+
+            }
+        }
+
+        stage("maven build") {
+            stages {
+                stage("maven build") {
+                    steps{
+                        sh "mvn -B -DskipTests clean compile package"
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+```
 
