@@ -30,12 +30,22 @@ pipeline {
 //             }
 //         }
 
-        stages("maven build") {
-            stage("maven build") {
-                steps{
-                    sh "mvn clean compile package"
+        stage("maven build") {
+            stages {
+                stage("mvn install") {
+                    steps {
+                        sh """
+                            mvn install
+                        """
+                    }
+                }
+                stage("maven build") {
+                    steps{
+                        sh "mvn clean compile package"
+                    }
                 }
             }
+
         }
     }
 
