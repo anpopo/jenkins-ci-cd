@@ -12,4 +12,9 @@ public class CommonController {
     public String common() {
         return "hi~";
     }
+
+    @GetMapping("/jenkins/test")
+    public String jenkinsTest() {
+        return "this is jenkins test~";
+    }
 }
